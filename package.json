@@ -1,0 +1,40 @@
+{
+  "name": "sssf_project",
+  "version": "1.0.0",
+  "description": "This project is an online news where users can post and read articles about every topics they want.",
+  "main": "start.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/arnaud18o5/SSSF_Project.git"
+  },
+  "keywords": [
+    "Node",
+    "express",
+    "passport",
+    "GraphQL"
+  ],
+  "author": "Arnaud Avocat-Gros",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/arnaud18o5/SSSF_Project/issues"
+  },
+  "homepage": "https://github.com/arnaud18o5/SSSF_Project#readme",
+  "dependencies": {
+    "apollo-server-express": "^3.6.7",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.0",
+    "esm": "^3.2.25",
+    "express": "^4.17.3",
+    "express-graphql": "^0.12.0",
+    "express-jwt": "^1.2.0",
+    "graphql": "^15.8.0",
+    "helmet": "^5.0.2",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.2.10",
+    "nodemon": "^2.0.15",
+    "passport": "^0.5.2"
+  }
+}
