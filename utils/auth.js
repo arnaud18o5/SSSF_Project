@@ -12,7 +12,7 @@ const login = (req) => {
                 if(err || !user){
                     reject(info.message);
                 }
-                const token = jwt.sign(req.user, 'lzenfinze18bjsz');
+                const token = jwt.sign(req.user, process.env.SECRET_KEY);
                 resolve( {...user, token, id: user._id});
             });
             
@@ -22,11 +22,28 @@ const login = (req) => {
 };
 
 
-const checkAuth = (req) => {
+const checkAuth= (req) => {
+  return new Promise((resolve, reject) => {
+    passport.authenticate('local', {session: false},
+    (err, user, info) => {
+      console.log(user);
+      resolve(user);
+    })(req);
+});
+}
+
+
+const check = (req) => {
     return new Promise((resolve) => {
-      passport.authenticate('jwt', (err, user) => {
+      passport.authenticate('jwt', {session: false},(err, user, info) => {
+        const token = req.headers.authorization || '';
+        if(token !== ''){
+        }
+          
+        
+        //const payload = jwt.verify(token,process.env.SECRET_KEY);
         if (err || !user) {
-          resolve(false);
+          resolve({message: 'error'});
         }
         resolve(user);
       })(req);
@@ -34,6 +51,6 @@ const checkAuth = (req) => {
   };
   
 
-export {checkAuth, login};
+export {checkAuth, check, login};
 
 

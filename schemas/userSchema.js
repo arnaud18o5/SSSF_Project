@@ -11,11 +11,22 @@ export default gql`
       username: String!,
       password: String!
     ): User
+    
+    addUserInfo(
+        id: ID!,
+        firstName: String,
+        lastName: String,
+        description: String,
+    ): User
+
   }
   
   type User {
     id: ID,
     username: String,
-    token: String
+    token: String,
+    firstName: String,
+    lastName: String,
+    description: String
   }
 `;

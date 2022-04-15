@@ -2,12 +2,15 @@
 import express from 'express';
 import {ApolloServer} from 'apollo-server-express';
 import bodyParser from 'body-parser';
+import cookieParser from 'cookie-parser';
+import session from 'express-session';
+import cors from 'cors';
 import typeDefs from './schemas/index';
 import resolvers from './resolvers/index';
 import dotenv from 'dotenv';
 dotenv.config();
 import connectMongo from './utils/db';
-import { checkAuth } from './utils/auth';
+import { checkAuth, check } from './utils/auth';
 
 (async () => {
     try {
@@ -23,20 +26,33 @@ import { checkAuth } from './utils/auth';
           resolvers,
           context:  async ( {req} ) => {
             if (req) {
-              const user = await checkAuth(req);
-              return { user, req };
+                const user = await check(req);
+                if(user != false){
+                }
+                return { user, req };
             }
           },
         });
+
+        
     
         const app = express();
-    
         app.use(bodyParser.urlencoded({ extended: false }))
+        app.use(cookieParser());
+        app.use(cors());
         await server.start();
+
+        server.applyMiddleware({
+            app,
+            cors: { 
+               origin: ['https://studio.apollographql.com'],               
+               credentials: true,
+            }
+        });
     
         server.applyMiddleware({ app });
     
-        app.listen({ port: process.env.PORT || 3000 }, () =>
+        app.listen({ port: process.env.PORT || 4000 }, () =>
           console.log(
             `🚀 Server ready at http://localhost:3000${server.graphqlPath}`
           )
