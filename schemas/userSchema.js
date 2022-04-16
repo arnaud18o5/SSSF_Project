@@ -24,7 +24,6 @@ export default gql`
   type User {
     id: ID,
     username: String,
-    token: String,
     firstName: String,
     lastName: String,
     description: String

@@ -10,7 +10,7 @@ import resolvers from './resolvers/index';
 import dotenv from 'dotenv';
 dotenv.config();
 import connectMongo from './utils/db';
-import { checkAuth, check } from './utils/auth';
+import { checkAuth } from './utils/auth';
 
 (async () => {
     try {
@@ -24,11 +24,10 @@ import { checkAuth, check } from './utils/auth';
         const server = new ApolloServer({
           typeDefs,
           resolvers,
-          context:  async ( {req} ) => {
+          context:  async ( {req, res} ) => {
+            console.log("apollo server context");
             if (req) {
-                const user = await check(req);
-                if(user != false){
-                }
+                const user = await checkAuth(req);
                 return { user, req };
             }
           },
