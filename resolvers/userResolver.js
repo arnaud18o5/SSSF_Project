@@ -49,10 +49,17 @@ export default {
       addUserInfo : async (parent, args, {req}) => {
         try {
           console.log("addUserInfo userResolver");
-          const user = await checkAuth(req);
-          const u = await User.update({id: args.id}, {$set:{firstName: args.firstName, lastName: args.lastName, description: args.description}});
-          const updatedUser = await User.findById(args.id);
-          return updatedUser;
+          const response = await checkAuth(req);
+          const user = response.user;
+          const info = response.info;
+          if(user){
+            const u = await User.update({id: user.id}, {$set:{firstName: args.firstName, lastName: args.lastName, description: args.description}});
+            const updatedUser = await User.findById(user.id);
+            return updatedUser;
+          }
+          else {
+            throw new Error(info);
+          }
         } catch (error) {
           throw new Error(err);
         }
