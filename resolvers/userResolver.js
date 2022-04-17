@@ -8,8 +8,6 @@ export default {
         const response = await checkAuth(req)
         const user = response.user;
         const info = response.info;
-        console.log("user :", user);
-        console.log("info :", info);
         if(user){
           return await User.findById(args.id);
         }
@@ -20,10 +18,15 @@ export default {
       login: async (parent, args, {req}) => {
         // get username and password from query
         // and add to req.body for passport
-        console.log("login userresolver");
+        console.log('login');
         req.body = args;
         const log = await login(req);
-        return log
+        if(log === false){
+          throw new Error("Wrong credentials");
+        }
+        else{
+          return log;
+        }
       },
     },
     Mutation: {
@@ -46,6 +49,7 @@ export default {
           throw new Error(err);
         }
       },
+
       addUserInfo : async (parent, args, {req}) => {
         try {
           console.log("addUserInfo userResolver");
@@ -53,15 +57,16 @@ export default {
           const user = response.user;
           const info = response.info;
           if(user){
-            const u = await User.update({id: user.id}, {$set:{firstName: args.firstName, lastName: args.lastName, description: args.description}});
+            console.log(user.id);
+            const u = await User.updateMany({username: user.username}, {$set:{firstName: args.firstName, lastName: args.lastName, description: args.description}});
             const updatedUser = await User.findById(user.id);
             return updatedUser;
           }
           else {
-            throw new Error(info);
+            throw new Error('Error: wrong token');
           }
         } catch (error) {
-          throw new Error(err);
+          throw new Error(error);
         }
       }
     },
