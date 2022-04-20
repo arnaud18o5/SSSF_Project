@@ -32,9 +32,6 @@ import { checkAuth } from './utils/auth';
             }
           },
         });
-
-        
-    
         const app = express();
         app.use(bodyParser.urlencoded({ extended: false }))
         app.use(cookieParser());
@@ -57,6 +54,6 @@ import { checkAuth } from './utils/auth';
           )
         );
       } catch (e) {
-        console.log('server error: ' + e.message);
+        console.log('server error: ' + e);
       }
 })();
