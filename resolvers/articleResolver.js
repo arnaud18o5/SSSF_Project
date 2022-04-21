@@ -5,6 +5,9 @@ export default {
     Query: {
       article: async (parent, args, { req }) => {
           return await Article.findById(args.id);
+      },
+      getAllArticlesOf : async (parent, args, {req}) => {
+        return await Article.find({author: args.id});
       }
     },
     Mutation: {
@@ -16,7 +19,7 @@ export default {
           const info = response.info;
           if(user){
               let article = args;
-              article.author = user.username;
+              article.author = user._id;
               article.date = new Date();
               const newArticle = new Article(article);
               console.log("new article", newArticle)
