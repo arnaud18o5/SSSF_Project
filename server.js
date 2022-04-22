@@ -5,6 +5,7 @@ import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import session from 'express-session';
 import cors from 'cors';
+import {graphqlUploadExpress} from 'graphql-upload';
 import typeDefs from './schemas/index';
 import resolvers from './resolvers/index';
 import dotenv from 'dotenv';
@@ -36,6 +37,7 @@ import { checkAuth } from './utils/auth';
         app.use(bodyParser.urlencoded({ extended: false }))
         app.use(cookieParser());
         app.use(cors());
+        app.use(graphqlUploadExpress());
         await server.start();
 
         server.applyMiddleware({
