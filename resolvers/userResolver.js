@@ -38,12 +38,14 @@ export default {
           user.firstName = 'empty';
           user.lastName = 'empty';
           user.description = 'empty';
+          user.avatar = 'IOfBmq4ZMcCE.webp';
           const userWithHash = {
             ...user,
             password: hash,
           };
           const newUser = new User(userWithHash);
           const result = await newUser.save();
+          console.log(result);
           return result;
         } catch (err) {
           throw new Error(err);

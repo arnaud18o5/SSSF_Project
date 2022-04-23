@@ -26,6 +26,7 @@ export default gql`
     token: String,
     firstName: String,
     lastName: String,
-    description: String
+    description: String,
+    avatar: String
   }
 `;

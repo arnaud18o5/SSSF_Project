@@ -38,6 +38,7 @@ import { checkAuth } from './utils/auth';
         app.use(cookieParser());
         app.use(cors());
         app.use(graphqlUploadExpress());
+        app.use(express.static('public'));
         await server.start();
 
         server.applyMiddleware({

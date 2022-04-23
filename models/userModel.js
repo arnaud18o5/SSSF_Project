@@ -8,6 +8,7 @@ const userSchema = new Schema({
   firstName: {type: String, required: true},
   lastName: {type: String, required: true},
   description :{type: String, required: false},
+  avatar : {type: String, required: false}
 });
 
 export default mongoose.model('User', userSchema);
