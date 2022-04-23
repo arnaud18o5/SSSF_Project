@@ -16,6 +16,7 @@ export default gql`
         firstName: String,
         lastName: String,
         description: String,
+        avatar: String,
     ): User
 
   }

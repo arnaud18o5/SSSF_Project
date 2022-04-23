@@ -60,7 +60,7 @@ export default {
           const info = response.info;
           if(user){
             console.log(user.id);
-            const u = await User.updateMany({username: user.username}, {$set:{firstName: args.firstName, lastName: args.lastName, description: args.description}});
+            const u = await User.updateMany({username: user.username}, {$set:{firstName: args.firstName, lastName: args.lastName, description: args.description, avatar: args.avatar}});
             const updatedUser = await User.findById(user.id);
             return updatedUser;
           }
