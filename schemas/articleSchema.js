@@ -12,12 +12,21 @@ export default gql`
         text: String!
     ): Article
 
+    postComment(articleID:ID!, text:String!) : Article
   }
   
   type Article {
     id: ID,
     author: ID,
     title: String,
+    text: String,
+    date: String,
+    comments: [Comment]
+  }
+
+  type Comment {
+    id: ID,
+    author: ID,
     text: String,
     date: String
   }

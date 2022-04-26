@@ -16,6 +16,7 @@ const login = (req) => {
                 }
                 else{
                     const token = jwt.sign(user, 'lzenfinze18bjsz', {expiresIn: "10h"});
+                    console.log(user);
                     resolve( {...user, token, id: user._id});
                 }
             });

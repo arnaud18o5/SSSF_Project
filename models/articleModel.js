@@ -7,6 +7,11 @@ const userSchema = new Schema({
     title: {type: String, required: true},
     text: {type: String, required: true},
     date: {type: String, required: true},
+    comments : [{
+        author: {type: mongoose.Types.ObjectId, unique: false, required: true},
+        text: {type: String, required: true},
+        date: {type: String, required: true},
+    }],
 });
 
 export default mongoose.model('Article', userSchema);
