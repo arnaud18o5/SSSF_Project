@@ -13,6 +13,7 @@ export default gql`
     ): Article
 
     postComment(articleID:ID!, text:String!) : Article
+    like(articleID:ID!) : Article
   }
   
   type Article {
@@ -21,7 +22,9 @@ export default gql`
     title: String,
     text: String,
     date: String,
-    comments: [Comment]
+    comments: [Comment],
+    likes: [Like],
+    dislikes: [Like]
   }
 
   type Comment {
@@ -29,5 +32,9 @@ export default gql`
     author: ID,
     text: String,
     date: String
+  }
+
+  type Like {
+    author: ID
   }
 `;

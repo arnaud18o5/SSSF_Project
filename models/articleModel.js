@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 
 const Schema = mongoose.Schema;
 
-const userSchema = new Schema({
+const articleSchema = new Schema({
     author: {type: mongoose.Types.ObjectId, unique: false},
     title: {type: String, required: true},
     text: {type: String, required: true},
@@ -12,6 +12,8 @@ const userSchema = new Schema({
         text: {type: String, required: true},
         date: {type: String, required: true},
     }],
+    likes : [{ author : {type : mongoose.Types.ObjectId, unique: true}}],
+    dislikes: [{ author : {type : mongoose.Types.ObjectId, unique: true}}]
 });
 
-export default mongoose.model('Article', userSchema);
+export default mongoose.model('Article', articleSchema);

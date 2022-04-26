@@ -1,5 +1,6 @@
 import bcrypt from 'bcrypt';
 import Article from '../models/articleModel';
+import articleSchema from '../schemas/articleSchema';
 import {checkAuth, login} from '../utils/auth';
 export default {
     Query: {
@@ -31,6 +32,32 @@ export default {
           }
         } catch (err) {
           throw new Error(err);
+        }
+      },
+
+      like: async (parent, args, {req}) => {
+        try {
+          const response = await checkAuth(req);
+          const user = response.user;
+          const info = response.info;
+          if(user){
+            const article = await Article.findById(args.articleID);
+            if(article){
+              const oldLike = await article.likes.find({auhtor: user._id});
+              console.log(oldLike);
+              article.likes.unshift({author : user._id});
+              await article.save();
+              return article;
+            }
+            else{
+              throw new Error("No article");
+            }
+          }
+          else{
+            throw new Error(info);
+          }
+        } catch (error) {
+          throw new Error(error);
         }
       }
     },
