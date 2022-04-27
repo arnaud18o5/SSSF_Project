@@ -1,4 +1,3 @@
-import bcrypt from 'bcrypt';
 import File from '../models/fileModel';
 import {checkAuth, login} from '../utils/auth';
 import {GraphQLUpload} from 'graphql-upload';

@@ -1,4 +1,3 @@
-import bcrypt from 'bcrypt';
 import Article from '../models/articleModel';
 import articleSchema from '../schemas/articleSchema';
 import {checkAuth, login} from '../utils/auth';
