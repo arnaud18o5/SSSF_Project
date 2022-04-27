@@ -43,9 +43,12 @@ export default {
           if(user){
             const article = await Article.findById(args.articleID);
             if(article){
-              const oldLike = await article.likes.find({auhtor: user._id});
-              console.log(oldLike);
-              article.likes.unshift({author : user._id});
+              if(article.likes.find(like => like.author.equals(user._id))){
+                article.likes = article.likes.filter(like => !(like.author.equals(user._id)));
+              }
+              else{
+                article.likes.push({author : user._id});
+              }   
               await article.save();
               return article;
             }
