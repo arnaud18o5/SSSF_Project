@@ -4,7 +4,7 @@
   "description": "This project is an online news where users can post and read articles about every topics they want.",
   "main": "start.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha"
   },
   "repository": {
     "type": "git",

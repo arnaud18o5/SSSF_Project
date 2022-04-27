@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/4f3d4508-f6fd-4c47-a32a-53c116add1ea/resourceGroups/appsvc_linux_centralus/providers/Microsoft.Web/sites/sssf-OnlineNews",
+    "appService.deploySubpath": "."
+}
