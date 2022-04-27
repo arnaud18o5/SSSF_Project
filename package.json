@@ -4,7 +4,7 @@
   "description": "This project is an online news where users can post and read articles about every topics they want.",
   "main": "start.js",
   "scripts": {
-    "test": "mocha"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
@@ -25,7 +25,6 @@
   "dependencies": {
     "apollo-server": "^3.6.7",
     "apollo-server-express": "^3.6.7",
-    "bcrypt": "^5.0.1",
     "body-parser": "^1.20.0",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
@@ -33,7 +32,7 @@
     "esm": "^3.2.25",
     "express": "^4.17.3",
     "express-graphql": "^0.12.0",
-    "express-jwt": "^7.5.0",
+    "express-jwt": "^1.2.0",
     "express-session": "^1.17.2",
     "graphql": "^15.8.0",
     "graphql-upload": "^13.0.0",
