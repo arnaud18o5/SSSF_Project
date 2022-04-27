@@ -14,6 +14,7 @@ export default gql`
 
     postComment(articleID:ID!, text:String!) : Article
     like(articleID:ID!) : Article
+    dislike(articleID:ID!) : Article
   }
   
   type Article {

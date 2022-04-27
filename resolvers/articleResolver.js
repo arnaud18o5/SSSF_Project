@@ -47,7 +47,38 @@ export default {
                 article.likes = article.likes.filter(like => !(like.author.equals(user._id)));
               }
               else{
+                article.dislikes = article.dislikes.filter(like => !(like.author.equals(user._id)));
                 article.likes.push({author : user._id});
+              }   
+              await article.save();
+              return article;
+            }
+            else{
+              throw new Error("No article");
+            }
+          }
+          else{
+            throw new Error(info);
+          }
+        } catch (error) {
+          throw new Error(error);
+        }
+      },
+
+      dislike: async (parent, args, {req}) => {
+        try {
+          const response = await checkAuth(req);
+          const user = response.user;
+          const info = response.info;
+          if(user){
+            const article = await Article.findById(args.articleID);
+            if(article){
+              if(article.dislikes.find(like => like.author.equals(user._id))){
+                article.dislikes = article.dislikes.filter(like => !(like.author.equals(user._id)));
+              }
+              else{
+                article.likes = article.dislikes.filter(like => !(like.author.equals(user._id)));
+                article.dislikes.push({author : user._id});
               }   
               await article.save();
               return article;
