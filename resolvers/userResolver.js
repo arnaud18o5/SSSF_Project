@@ -70,6 +70,34 @@ export default {
         } catch (error) {
           throw new Error(error);
         }
+      },
+
+      subscribeToUser: async (parent, args, {req}) => {
+        try {
+          const response = await checkAuth(req);
+          const subscriber = response.user;
+          const info = response.info;
+
+          if(!subscriber){
+            throw new Error(info);
+          }
+          else{
+            const subscribed = await User.findById(args.userID);
+            if(subscribed.subscribers.find(sub => sub.id.equals(subscriber._id))){ // check if subscriber is already subscribed to subscribed user
+              subscribed.subscribers = subscribed.subscribers.filter(sub => !(sub.id.equals(subscriber._id)));
+              subscriber.subscribingTo = subscriber.subscribingTo.filter(sub => !(sub.id.equalts(subscribed._id)));
+            }
+            else{
+              subscribed.subscribers.push({id: subscriber._id, username: subscriber.username});
+              subscriber.subscribingTo.push({id: subscribed._id, username: subscribed.username});
+            }
+            subscribed.save();
+            subscriber.save();
+            return subscribed;
+          }
+        } catch (error) {
+          throw new Error(error);
+        }
       }
     },
   };

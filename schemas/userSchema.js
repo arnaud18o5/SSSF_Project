@@ -19,6 +19,10 @@ export default gql`
         avatar: String,
     ): User
 
+    subscribeToUser(
+      userID: ID!
+    ) : User
+
   }
   
   type User {
@@ -28,6 +32,13 @@ export default gql`
     firstName: String,
     lastName: String,
     description: String,
-    avatar: String
+    avatar: String,
+    subscribers: [Subscriber],
+    subscribingTo: [Subscriber]
+  }
+
+  type Subscriber {
+    id: ID,
+    username: String
   }
 `;
