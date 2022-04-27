@@ -85,7 +85,7 @@ export default {
             const subscribed = await User.findById(args.userID);
             if(subscribed.subscribers.find(sub => sub.id.equals(subscriber._id))){ // check if subscriber is already subscribed to subscribed user
               subscribed.subscribers = subscribed.subscribers.filter(sub => !(sub.id.equals(subscriber._id)));
-              subscriber.subscribingTo = subscriber.subscribingTo.filter(sub => !(sub.id.equalts(subscribed._id)));
+              subscriber.subscribingTo = subscriber.subscribingTo.filter(sub => !(sub.id.equals(subscribed._id)));
             }
             else{
               subscribed.subscribers.push({id: subscriber._id, username: subscriber.username});
