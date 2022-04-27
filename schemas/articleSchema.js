@@ -13,6 +13,7 @@ export default gql`
     ): Article
 
     postComment(articleID:ID!, text:String!) : Article
+    removeComment(articleID:ID!, commentID:ID!) : Article
     like(articleID:ID!) : Article
     dislike(articleID:ID!) : Article
   }
