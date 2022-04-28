@@ -17,7 +17,6 @@ passport.use(new JwtStrategy(opts, function(jwt_payload, done) {
             return done(err, false);
         }
         if (user) {
-          console.log("checkAuth user ",jwt_payload._id);
             return done(null, user);
         } else {
             return done(null, false);

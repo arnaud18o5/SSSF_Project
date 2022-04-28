@@ -26,7 +26,8 @@ export default gql`
     date: String,
     comments: [Comment],
     likes: [Like],
-    dislikes: [Like]
+    dislikes: [Like],
+    topics: [Topic]
   }
 
   type Comment {
@@ -38,5 +39,10 @@ export default gql`
 
   type Like {
     author: ID
+  }
+
+  type Topic {
+    id: ID,
+    name: String
   }
 `;
