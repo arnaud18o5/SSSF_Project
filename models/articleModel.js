@@ -3,7 +3,15 @@ import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
 
 const articleSchema = new Schema({
-    author: {type: mongoose.Types.ObjectId, unique: false},
+    author: {
+        id: {type:mongoose.Types.ObjectId, unique:false},
+        username: {type: String, unique: false},
+        firstName: {type: String, required: false},
+        lastName: {type: String, required: false},
+        description :{type: String, required: false},
+        avatar : {type: String, required: false}
+    },
+    headPicture: {type: String, unique:false},
     title: {type: String, required: true},
     text: {type: String, required: true},
     date: {type: String, required: true},
@@ -12,8 +20,20 @@ const articleSchema = new Schema({
         text: {type: String, required: true},
         date: {type: String, required: true},
     }],
-    likes : [{ author : {type : mongoose.Types.ObjectId, unique: true}}],
-    dislikes: [{ author : {type : mongoose.Types.ObjectId, unique: true}}],
+    likes : [{ usr : {
+        _id: {type:mongoose.Types.ObjectId, unique:false},
+        username: {type: String, unique: false},
+        firstName: {type: String, required: false},
+        lastName: {type: String, required: false},
+        avatar : {type: String, required: false}
+    }}],
+    dislikes: [{ usr : {
+        _id: {type:mongoose.Types.ObjectId, unique:false},
+        username: {type: String, unique: false},
+        firstName: {type: String, required: false},
+        lastName: {type: String, required: false},
+        avatar : {type: String, required: false}
+    }}],
     topics: [{
         _id: {type: mongoose.Types.ObjectId, unique: true, required:true},
         name: {type: String, unique:true, required:true}

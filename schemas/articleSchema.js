@@ -10,13 +10,15 @@ type Topic {
   extend type Query {
     article(id: ID!): Article
     getAllArticlesOf(id: ID!): [Article]
+    getLastArticles(number: Int): [Article]
   }
   
   extend type Mutation {
     postArticle(
         title: String!,
         text: String!,
-        topics: [ID]
+        topics: [ID],
+        headPicture: String
     ): Article
 
     postComment(articleID:ID!, text:String!) : Article
@@ -27,7 +29,8 @@ type Topic {
   
   type Article {
     id: ID,
-    author: ID,
+    author: User,
+    headPicture: String,
     title: String,
     text: String,
     date: String,
@@ -45,8 +48,15 @@ type Topic {
   }
 
   type Like {
-    author: ID
+    usr: LikeUser
   }
 
+  type LikeUser {
+    _id: ID,
+    username: String,
+    firstName: String,
+    lastName: String,
+    avatar :  String,
+  }
   
 `;

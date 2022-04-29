@@ -8,6 +8,10 @@ export default {
       },
       getAllArticlesOf : async (parent, args, {req}) => {
         return await Article.find({author: args.id});
+      },
+      getLastArticles : async (parent, args) => {
+        const articles = await Article.find({}).sort({"date": 1});
+        return articles.slice(0,args.number);
       }
     },
     Mutation: {
@@ -21,8 +25,9 @@ export default {
               let article = {};
               article.title = args.title;
               article.text = args.text;
-              article.author = user._id;
-              article.date = new Date();
+              article.author = {id: user._id, username: user.username, firstName: user.firstName, lastName: user.lastName, description: user.description, avatar:user.avatar};
+              article.headPicture = args.headPicture;
+              article.date = (new Date()).toISOString();
               article.topics = [];
               const t = args.topics;
               await Promise.all(t.map( async topic => {
@@ -32,6 +37,7 @@ export default {
                 }
               }));
               const newArticle = new Article(article);
+              console.log(newArticle);
               const result = await newArticle.save();
               return result;
           }
@@ -51,12 +57,12 @@ export default {
           if(user){
             const article = await Article.findById(args.articleID);
             if(article){
-              if(article.likes.find(like => like.author.equals(user._id))){
-                article.likes = article.likes.filter(like => !(like.author.equals(user._id)));
+                if(article.likes.find(like => user._id.equals(like.usr._id))){
+                article.likes = article.likes.filter(like => !(like.usr._id.equals(user._id)));
               }
               else{
-                article.dislikes = article.dislikes.filter(like => !(like.author.equals(user._id)));
-                article.likes.push({author : user._id});
+                article.dislikes = article.dislikes.filter(like => !(like.usr._id.equals(user._id)));
+                article.likes.push({usr : {_id:user._id, username: user.username, firstName: user.firstName, lastName: user.lastName, avatar: user.avatar}});
               }   
               await article.save();
               return article;
