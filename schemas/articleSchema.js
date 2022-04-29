@@ -1,6 +1,12 @@
 import {gql} from 'apollo-server-express';
 
 export default gql`
+
+type Topic {
+    id: ID,
+    name: String
+  }
+
   extend type Query {
     article(id: ID!): Article
     getAllArticlesOf(id: ID!): [Article]
@@ -9,7 +15,8 @@ export default gql`
   extend type Mutation {
     postArticle(
         title: String!,
-        text: String!
+        text: String!,
+        topics: [ID]
     ): Article
 
     postComment(articleID:ID!, text:String!) : Article
@@ -41,8 +48,5 @@ export default gql`
     author: ID
   }
 
-  type Topic {
-    id: ID,
-    name: String
-  }
+  
 `;

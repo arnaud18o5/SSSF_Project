@@ -1,5 +1,5 @@
 import Article from '../models/articleModel';
-import articleSchema from '../schemas/articleSchema';
+import Topic from '../models/topicModel.js';
 import {checkAuth, login} from '../utils/auth';
 export default {
     Query: {
@@ -18,11 +18,20 @@ export default {
           const user = response.user;
           const info = response.info;
           if(user){
-              let article = args;
+              let article = {};
+              article.title = args.title;
+              article.text = args.text;
               article.author = user._id;
               article.date = new Date();
+              article.topics = [];
+              const t = args.topics;
+              await Promise.all(t.map( async topic => {
+                const to = await Topic.findById(topic);
+                if(to!==null){
+                  article.topics.push(to);
+                }
+              }));
               const newArticle = new Article(article);
-              console.log("new article", newArticle)
               const result = await newArticle.save();
               return result;
           }

@@ -13,7 +13,11 @@ const articleSchema = new Schema({
         date: {type: String, required: true},
     }],
     likes : [{ author : {type : mongoose.Types.ObjectId, unique: true}}],
-    dislikes: [{ author : {type : mongoose.Types.ObjectId, unique: true}}]
+    dislikes: [{ author : {type : mongoose.Types.ObjectId, unique: true}}],
+    topics: [{
+        _id: {type: mongoose.Types.ObjectId, unique: true, required:true},
+        name: {type: String, unique:true, required:true}
+    }]
 });
 
 export default mongoose.model('Article', articleSchema);
