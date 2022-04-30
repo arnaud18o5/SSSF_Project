@@ -27,6 +27,7 @@ const articleSchema = new Schema({
         lastName: {type: String, required: false},
         avatar : {type: String, required: false}
     }}],
+    likeCounter: {type: String},
     dislikes: [{ usr : {
         _id: {type:mongoose.Types.ObjectId, unique:false},
         username: {type: String, unique: false},
@@ -34,8 +35,9 @@ const articleSchema = new Schema({
         lastName: {type: String, required: false},
         avatar : {type: String, required: false}
     }}],
+    dislikeCounter: {type:String},
     topics: [{
-        _id: {type: mongoose.Types.ObjectId, unique: true, required:true},
+        _id: {type: mongoose.Types.ObjectId, unique: false, required:true},
         name: {type: String, unique:true, required:true}
     }]
 });

@@ -11,6 +11,7 @@ type Topic {
     article(id: ID!): Article
     getAllArticlesOf(id: ID!): [Article]
     getLastArticles(number: Int): [Article]
+    getBestArticles(number: Int): [Article]
   }
   
   extend type Mutation {
@@ -36,7 +37,9 @@ type Topic {
     date: String,
     comments: [Comment],
     likes: [Like],
+    likeCounter: String,
     dislikes: [Like],
+    dislikeCounter: String,
     topics: [Topic]
   }
 

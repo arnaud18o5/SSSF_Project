@@ -1,6 +1,7 @@
 import Article from '../models/articleModel';
 import Topic from '../models/topicModel.js';
 import {checkAuth, login} from '../utils/auth';
+
 export default {
     Query: {
       article: async (parent, args, { req }) => {
@@ -10,7 +11,14 @@ export default {
         return await Article.find({author: args.id});
       },
       getLastArticles : async (parent, args) => {
-        const articles = await Article.find({}).sort({"date": 1});
+        const articles = await Article.find({}).sort({"date": -1});
+        console.log(articles[0].likes.length);
+        return articles.slice(0,args.number);
+      },
+
+      getBestArticles: async (parent, args) => {
+        const articles = await Article.find({}).sort({"likeCounter":-1});
+        console.log(articles);
         return articles.slice(0,args.number);
       }
     },
@@ -29,6 +37,8 @@ export default {
               article.headPicture = args.headPicture;
               article.date = (new Date()).toISOString();
               article.topics = [];
+              article.likeCounter = '0';
+              article.dislikeCounter = '0';
               const t = args.topics;
               await Promise.all(t.map( async topic => {
                 const to = await Topic.findById(topic);
@@ -59,10 +69,13 @@ export default {
             if(article){
                 if(article.likes.find(like => user._id.equals(like.usr._id))){
                 article.likes = article.likes.filter(like => !(like.usr._id.equals(user._id)));
+                article.likeCounter = (parseInt(article.likeCounter) - 1).toString();
               }
               else{
+                if(article.dislikes.find(like => user._id.equals(like.usr._id))) article.dislikeCounter = (parseInt(article.dislikeCounter) - 1).toString();
                 article.dislikes = article.dislikes.filter(like => !(like.usr._id.equals(user._id)));
                 article.likes.push({usr : {_id:user._id, username: user.username, firstName: user.firstName, lastName: user.lastName, avatar: user.avatar}});
+                article.likeCounter = (parseInt(article.likeCounter) + 1).toString();
               }   
               await article.save();
               return article;
@@ -87,12 +100,16 @@ export default {
           if(user){
             const article = await Article.findById(args.articleID);
             if(article){
-              if(article.dislikes.find(like => like.author.equals(user._id))){
-                article.dislikes = article.dislikes.filter(like => !(like.author.equals(user._id)));
+              if(article.dislikes.find(like => like.usr._id.equals(user._id))){
+                article.dislikes = article.dislikes.filter(like => !(like.usr.id.equals(user._id)));
+                article.dislikeCounter = (parseInt(article.dislikeCounter) - 1).toString();
               }
               else{
-                article.likes = article.dislikes.filter(like => !(like.author.equals(user._id)));
-                article.dislikes.push({author : user._id});
+                if(article.likes.find(like => like.usr._id.equals(user._id))) article.likeCounter = (parseInt(article.likeCounter) - 1).toString();
+                article.likes = article.dislikes.filter(like => !(like.usr._id.equals(user._id)));
+                console.log(user);
+                article.dislikes.push({usr :{_id:user._id, username: user.username, firstName: user.firstName, lastName: user.lastName, avatar: user.avatar}});
+                article.dislikeCounter = (parseInt(article.dislikeCounter) + 1).toString();
               }   
               await article.save();
               return article;
