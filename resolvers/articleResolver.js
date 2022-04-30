@@ -41,12 +41,14 @@ export default {
               article.likeCounter = '0';
               article.dislikeCounter = '0';
               const t = args.topics;
-              await Promise.all(t.map( async topic => {
-                const to = await Topic.findById(topic);
-                if(to!==null){
-                  article.topics.push(to);
-                }
-              }));
+              if(t){
+                await Promise.all(t.map( async topic => {
+                  const to = await Topic.findById(topic);
+                  if(to!==null){
+                    article.topics.push(to);
+                  }
+                }));
+              }
               const newArticle = new Article(article);
               console.log(newArticle);
               const result = await newArticle.save();
