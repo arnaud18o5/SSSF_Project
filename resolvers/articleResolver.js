@@ -11,7 +11,9 @@ export default {
         return await Article.find({author: args.id});
       },
       getLastArticles : async (parent, args) => {
+        console.log(args);
         const articles = await Article.find({}).sort({"date": -1});
+        console.log(articles);
         return articles.slice(0,args.number);
       },
 
