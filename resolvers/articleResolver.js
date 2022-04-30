@@ -12,7 +12,6 @@ export default {
       },
       getLastArticles : async (parent, args) => {
         const articles = await Article.find({}).sort({"date": -1});
-        console.log(articles[0].likes.length);
         return articles.slice(0,args.number);
       },
 
