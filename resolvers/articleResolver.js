@@ -9,10 +9,11 @@ export default {
       },
       getAllArticlesOf : async (parent, args, {req}) => {
         const articles = await Article.find({author: args.id});
-        return articles.sort({"date": -1});
+        return articles;
       },
       getAllArticles : async (parent, args) => {
-        return await Article.find({});
+        const articles = await Article.find({});
+        return articles.sort({"date": -1});
       },
 
       getLastArticles : async (parent, args) => {
