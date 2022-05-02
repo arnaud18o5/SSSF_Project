@@ -8,7 +8,8 @@ export default {
           return await Article.findById(args.id);
       },
       getAllArticlesOf : async (parent, args, {req}) => {
-        return await Article.find({author: args.id});
+        const articles = await Article.find({author: args.id});
+        return articles.sort({"date": -1});
       },
       getAllArticles : async (parent, args) => {
         return await Article.find({});
