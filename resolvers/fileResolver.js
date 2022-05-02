@@ -28,7 +28,7 @@ export default {
           const pathName = path.join(__dirname, `../public/images/${randomName}`);
           await stream.pipe(fs.createWriteStream(pathName));
           return {
-            url: `http://localhost:4000/images/${randomName}`
+            url: `${randomName}`
           };
         },
     }

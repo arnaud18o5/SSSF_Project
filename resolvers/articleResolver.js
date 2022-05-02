@@ -13,19 +13,18 @@ export default {
       },
       getAllArticles : async (parent, args) => {
         const articles = await Article.find({});
-        return articles.sort({"date": -1});
+        return articles;
       },
 
       getLastArticles : async (parent, args) => {
-        console.log(args);
-        const articles = await Article.find({}).sort({"date": -1});
-        console.log(articles);
+        const articles = await Article.find({});
+        articles.sort({"date": -1});
         return articles.slice(0,args.number);
       },
 
       getBestArticles: async (parent, args) => {
-        const articles = await Article.find({}).sort({"likeCounter":-1});
-        console.log(articles);
+        const articles = await Article.find({})
+        articles.sort({"likeCounter":-1});
         return articles.slice(0,args.number);
       }
     },
