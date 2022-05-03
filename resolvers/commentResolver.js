@@ -14,13 +14,14 @@ export default {
                 }
                 else{
                     const article = await Article.findById(args.articleID);
-
+                    console.log(author);
                     if(article){
                         article.comments.unshift({
                             author: author,
                             text: args.text,
                             date: new Date(),
                         })
+                        console.log(article);
                         await article.save();
                         return article;
                     }
