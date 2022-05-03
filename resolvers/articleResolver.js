@@ -37,6 +37,16 @@ export default {
           return 0;
         })
         return articles.slice(0,args.number);
+      },
+
+      getArticleByTopic: async (parent, args) => {
+        try {
+          const articles = await Article.find({"topics": {$elemMatch: { _id : args.topicID}}});
+          console.log(args.topicID);
+          return articles;
+        } catch (error) {
+          throw new Error(error);
+        }
       }
     },
     Mutation: {

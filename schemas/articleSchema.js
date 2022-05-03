@@ -13,6 +13,7 @@ type Topic {
     getLastArticles(number: Int): [Article]
     getBestArticles(number: Int): [Article]
     getAllArticles(number: Int): [Article]
+    getArticleByTopic(topicID:ID!): [Article]
   }
   
   extend type Mutation {
