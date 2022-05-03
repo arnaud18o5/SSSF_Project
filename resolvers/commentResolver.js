@@ -47,12 +47,18 @@ export default {
                     else{
                         // args.commentID
                         const index = article.comments.findIndex(comment => comment._id.equals(args.commentID));
+                        console.log(index);
+                        if(index === -1)
+                            throw new Error("Can't find the comment.");
                         if(article.comments[index].author.username === user.username){
                             console.log(article.comments[index], "ok");
                             article.comments.splice(index, 1);
+                            await article.save();
+                            return article;
                         }
-                        await article.save();
-                        return article;
+                        else{
+                            throw new Error("You have to be the author of the comment to remove it.");
+                        }
                     }
                 }
             } catch (error) {
