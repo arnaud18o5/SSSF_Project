@@ -47,7 +47,7 @@ export default {
                     else{
                         // args.commentID
                         const index = article.comments.findIndex(comment => comment._id.equals(args.commentID));
-                        if(article.comments[index].author.equals(user._id)){
+                        if(article.comments[index].author.username === user.username){
                             console.log(article.comments[index], "ok");
                             article.comments.splice(index, 1);
                         }
@@ -56,7 +56,7 @@ export default {
                     }
                 }
             } catch (error) {
-                throw new Error(error);
+                throw error;
             }
         }
 
