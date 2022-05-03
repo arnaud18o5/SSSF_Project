@@ -27,6 +27,7 @@ type Topic {
     removeComment(articleID:ID!, commentID:ID!) : Article
     like(articleID:ID!) : Article
     dislike(articleID:ID!) : Article
+    removeArticle(articleID:ID!) : Message
   }
   
   type Article {
@@ -61,6 +62,10 @@ type Topic {
     firstName: String,
     lastName: String,
     avatar :  String,
+  }
+
+  type Message {
+    message: String
   }
   
 `;

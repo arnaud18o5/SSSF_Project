@@ -143,6 +143,33 @@ export default {
         } catch (error) {
           throw new Error(error);
         }
+      },
+
+      removeArticle: async (parent, args, {req}) => {
+        try {
+          const res = await checkAuth(req);
+          const user=res.user;
+          const info=res.info;
+          if(user){
+            const article = await Article.findById(args.articleID);
+            if(article){
+              if(article.author.id.equals(user._id)){
+                await Article.deleteOne({"_id":args.articleID});
+                return (
+                  {"message":"Article deleted"}
+                )
+              }
+              console.log(article.author.id, user._id);
+              throw new Error("You can't delete article if it's not yours.");
+            }
+            else
+              throw new Error("Can't find the article.");
+          }
+          else
+            throw new Error("User not connected.");
+        } catch (error) {
+          throw new Error(error);
+        }
       }
     },
   };
