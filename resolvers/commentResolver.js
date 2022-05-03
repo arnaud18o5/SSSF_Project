@@ -17,7 +17,7 @@ export default {
 
                     if(article){
                         article.comments.unshift({
-                            author: author._id,
+                            author: author,
                             text: args.text,
                             date: new Date(),
                         })

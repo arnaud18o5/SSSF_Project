@@ -49,7 +49,7 @@ type Topic {
 
   type Comment {
     id: ID,
-    author: ID,
+    author: User,
     text: String,
     date: String
   }
