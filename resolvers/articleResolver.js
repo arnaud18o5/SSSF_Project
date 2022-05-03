@@ -47,6 +47,15 @@ export default {
         } catch (error) {
           throw new Error(error);
         }
+      },
+      
+      getArticleById: async (parent, args) => {
+        try {
+          const article = await Article.findById(args.articleID);
+          return article;
+        } catch (error) {
+          throw new Error(error);
+        }
       }
     },
     Mutation: {
