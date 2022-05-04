@@ -5,15 +5,7 @@ export default {
     Query: {
       user: async (parent, args, { req }) => {
         // find user by id
-        const response = await checkAuth(req)
-        const user = response.user;
-        const info = response.info;
-        if(user){
           return await User.findById(args.id);
-        }
-        else{
-          throw new Error(info);
-        }
       },
       login: async (parent, args, {req}) => {
         // get username and password from query
