@@ -47,9 +47,14 @@ type Topic {
     topics: [Topic]
   }
 
+  type U {
+    id: ID,
+    username: String
+  }
+
   type Comment {
     id: ID,
-    author: User,
+    author: U,
     text: String,
     date: String
   }

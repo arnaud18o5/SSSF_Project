@@ -19,10 +19,6 @@ const articleSchema = new Schema({
         author: {
             id: {type:mongoose.Types.ObjectId, unique:false},
             username: {type: String, unique: false},
-            firstName: {type: String, required: false},
-            lastName: {type: String, required: false},
-            description :{type: String, required: false},
-            avatar : {type: String, required: false}
         },
         text: {type: String, required: true},
         date: {type: String, required: true},
