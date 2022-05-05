@@ -2,6 +2,7 @@ import Article from '../models/articleModel';
 import Topic from '../models/topicModel.js';
 import User from '../models/userModel.js';
 import {checkAuth, login} from '../utils/auth';
+import mongoose from 'mongoose';
 
 export default {
     Query: {
@@ -9,7 +10,8 @@ export default {
           return await Article.findById(args.id);
       },
       getAllArticlesOf : async (parent, args, {req}) => {
-        const articles = await Article.find({author: args.id});
+        const id = mongoose.Types.ObjectId(args.id);
+        const articles = await Article.find({'author.id': id});
         return articles;
       },
       getAllArticles : async (parent, args) => {
