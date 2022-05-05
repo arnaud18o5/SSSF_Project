@@ -67,7 +67,26 @@ export default {
         } catch (error) {
           throw new Error(error);
         }
+      },
+
+      getSubscriptionsArticle: async (parent, args, {req}) => {
+        try {
+          const response = await checkAuth(req);
+          const user = response.user;
+          const info = response.info;
+          console.log(user);
+          let articles = [];
+          await Promise.all( user.subscribingTo.map(async (sub) => {
+            console.log(sub.id)
+            const a = await Article.find({"author._id": sub.id});
+            articles.push(...a);
+          }))
+          return articles;
+        } catch (error) {
+          throw error;
+        }
       }
+
     },
     Mutation: {
       postArticle: async (parent, args, {req}) => {
