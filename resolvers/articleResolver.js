@@ -61,6 +61,7 @@ export default {
             console.log(art);
           }
           const a = await Article.findById(args.articleID);
+          console.log(a);
           return a;
         } catch (error) {
           throw new Error(error);
