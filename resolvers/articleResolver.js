@@ -54,7 +54,8 @@ export default {
         try {
           const article = await Article.findById(args.articleID);
           const author = await User.findById(article.author.id);
-          console.log(author);
+          console.log("young author",author);
+          console.log("old author",article.author);
           if(JSON.stringify(author)!==JSON.stringify(article.author)){
             console.log("change")
             const art = await Article.updateOne({id: article.id}, {$set: {author:{ id: author._id, username: author.username, firstName: author.firstName, lastName: author.lastName, avatar: author.avatar, description: author.description}}});
