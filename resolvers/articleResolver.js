@@ -1,5 +1,6 @@
 import Article from '../models/articleModel';
 import Topic from '../models/topicModel.js';
+import User from '../models/userModel.js';
 import {checkAuth, login} from '../utils/auth';
 
 export default {
@@ -52,7 +53,14 @@ export default {
       getArticleById: async (parent, args) => {
         try {
           const article = await Article.findById(args.articleID);
-          return article;
+          const author = await User.findById(article.author.id);
+          console.log(author);
+          if(JSON.stringify(author)!==JSON.stringify(article.author)){
+            console.log("change")
+            await Article.updateOne({id: article.id}, {$set: {author:{ id: author._id, username: author.username, firstName: author.firstName, lastName: author.lastName, avatar: author.avatar, description: author.description}}});
+          }
+          const a = await Article.findById(args.articleID);
+          return a;
         } catch (error) {
           throw new Error(error);
         }
@@ -172,6 +180,7 @@ export default {
           if(user){
             const article = await Article.findById(args.articleID);
             if(article){
+              console.log(article);
               if(article.author.id.equals(user._id)){
                 await Article.deleteOne({"_id":args.articleID});
                 return (
