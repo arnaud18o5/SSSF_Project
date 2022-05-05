@@ -57,7 +57,7 @@ export default {
           console.log(author);
           if(JSON.stringify(author)!==JSON.stringify(article.author)){
             console.log("change")
-            const art = await Article.updateMany({id: article.id}, {$set: {author:{ id: author._id, username: author.username, firstName: author.firstName, lastName: author.lastName, avatar: author.avatar, description: author.description}}});
+            const art = await Article.updateOne({id: article.id}, {$set: {author:{ id: author._id, username: author.username, firstName: author.firstName, lastName: author.lastName, avatar: author.avatar, description: author.description}}});
             console.log(art);
           }
           const a = await Article.findById(article.id);
@@ -97,7 +97,7 @@ export default {
               const newArticle = new Article(article);
               console.log(newArticle);
               const result = await newArticle.save();
-              return result;
+              return newArticle;
           }
           else{
             throw new Error(info);

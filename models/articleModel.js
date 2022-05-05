@@ -41,7 +41,7 @@ const articleSchema = new Schema({
     dislikeCounter: {type:String},
     topics: [{
         _id: {type: mongoose.Types.ObjectId, unique: false, required:true},
-        name: {type: String, unique:true, required:true}
+        name: {type: String, unique:false, required:true}
     }]
 });
 
