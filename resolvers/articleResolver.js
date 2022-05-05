@@ -76,6 +76,29 @@ export default {
           const response = await checkAuth(req);
           const user = response.user;
           const info = response.info;
+          let articles = [];
+          console.log(user);
+          await Promise.all( user.subscribingTo.map(async (sub) => {
+            console.log(sub.id)
+            const a = await Article.find({"author.id":sub.id});
+            
+            articles.push(...a);
+          }))
+          return articles.sort((a,b) => {
+            if(a.date > b.date) return -1;
+            if(a.date < b.date) return 1;
+            return 0;
+          });
+        } catch (error) {
+          throw error;
+        }
+      }
+
+      /*getSubscriptionsArticle: async (parent, args, {req}) => {
+        try {
+          const response = await checkAuth(req);
+          const user = response.user;
+          const info = response.info;
           console.log(user);
           let articles = [];
           await Promise.all( user.subscribingTo.map(async (sub) => {
@@ -97,7 +120,7 @@ export default {
         } catch (error) {
           throw error;
         }
-      }
+      }*/
 
     },
     Mutation: {
