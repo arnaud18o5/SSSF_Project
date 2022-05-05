@@ -81,7 +81,11 @@ export default {
             const a = await Article.find({"author._id": sub.id});
             articles.push(...a);
           }))
-          return articles;
+          return articles.sort((a,b) => {
+            if(a.date > b.date) return -1;
+            if(a.date < b.date) return 1;
+            return 0;
+          });
         } catch (error) {
           throw error;
         }
