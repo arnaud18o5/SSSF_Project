@@ -78,7 +78,8 @@ export default {
           let articles = [];
           await Promise.all( user.subscribingTo.map(async (sub) => {
             console.log(sub.id)
-            const a = await Article.find({"author._id": sub.id});
+            const a = await Article.find({"author._id": "winnedy"});
+            console.log(a);
             articles.push(...a);
           }))
           return articles.sort((a,b) => {
