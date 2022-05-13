@@ -69,6 +69,6 @@ This request allows user to add a new file on the server. This is use to add hea
 
 [Front-end GitHub](https://github.com/arnaud18o5/OnlineNewsFront)
 
-[Azure server](https://onlinenews.azurewebsites.net/)
+[Azure server](https://onlinenews.azurewebsites.net/graphql)
 
-[Front end](https://onlinenews.azurewebsites.net/)
+[Front end](https://onlinenewsfront.azurewebsites.net/)
