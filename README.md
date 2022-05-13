@@ -1,8 +1,16 @@
 # Online News Server
 
 This project is a server for a web application which allows users to post and read articles about the topics of their choice and many more features.
-You can access to the web application with this [link](https://onlinenews.azurewebsites.net/).
+You can access to the web application with this [link](https://onlinenewsfront.azurewebsites.net/).
 
+## Use the application
+
+First click on this [link](https://onlinenewsfront.azurewebsites.net/).
+Then you should be on the home page of the application. Here you can sign-up or login. Be aware that there is no callback message which tell you if the credentials are wrong or if you have created your account, so I strongly recommand you to use short credentials.
+
+When you are logged in the application you should see lists of article, you can navigate in it, click on like/dislike button and comment it. You can create and post a new article. You can go to your profile and update the informations there. You can also subscribe to other users accounts. You can remove your contents such as comment and article you posted.
+
+If you want to try  without creating account, you can use these credentials : username=tamara, pwd=tamara.
 ## GraphQL requests
 
 This server use GraphQL to fetch data from the database to the frontend. Here is a list of all the possible requests:
